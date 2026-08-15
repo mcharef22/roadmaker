@@ -2,6 +2,7 @@ const UserModel = require("../models/user.model");
 const ProjectModel = require("../models/project.model");
 const BindingAddressModel = require("../models/billingAddress.model");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const bcrypt = require("bcryptjs");
 
 module.exports.getUsers = async (req, res) => {
   const users = await UserModel.find();
