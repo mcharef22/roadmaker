@@ -32,6 +32,7 @@ jobs:
       - name: Build frontend
         working-directory: ./jemos_new
         env:
+          CI: false
           REACT_APP_API_URL: http://localhost:5000
           REACT_APP_GOOGLE_MAPS_API_KEY: dummy_key
           REACT_APP_STRIPE_PUBLIC_KEY: pk_test_dummy
