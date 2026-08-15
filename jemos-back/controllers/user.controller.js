@@ -178,3 +178,41 @@ module.exports.createStripeCustomer = async (req, res) => {
     });
   }
 };
+module.exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email et mot de passe requis",
+      });
+    }
+
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Identifiants invalides",
+      });
+    }
+
+    const passwordValid = bcrypt.compareSync(password, user.password);
+
+    if (!passwordValid) {
+      return res.status(401).json({
+        message: "Identifiants invalides",
+      });
+    }
+
+    const userObject = user.toObject();
+    delete userObject.password;
+
+    return res.status(200).json(userObject);
+  } catch (error) {
+    console.error("Erreur connexion utilisateur :", error);
+
+    return res.status(500).json({
+      message: "Erreur serveur",
+    });
+  }
+};

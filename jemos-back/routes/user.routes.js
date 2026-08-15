@@ -9,6 +9,7 @@ const {
   getUser,
   updateStripeCustomer,
   createStripeCustomer,
+  loginUser,
 } = require("../controllers/user.controller");
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.patch("/user/projects/:id", addProjectToUser);
 router.get("/user", getUserByEmail);
 router.put("/user/updateStripeCustomer/:userId", updateStripeCustomer);
 router.post("/user/stripe-customer", createStripeCustomer);
+router.post("/login", loginUser);
 
 module.exports = router;
