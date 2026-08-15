@@ -4,10 +4,10 @@ import MarkerScreen from "../../src/components/screens/marker/MarkerScreen";
 import i18n from "i18next";
 
 // Définir la langue à utiliser dans vos tests
-const testLanguage = 'fr';
+const testLanguage = "fr";
 
 // Mock de la fonction de traduction
-jest.mock('i18next', () => ({
+jest.mock("i18next", () => ({
   t: jest.fn((key) => key),
   init: jest.fn(),
 }));
@@ -58,12 +58,12 @@ describe("MarkerScreen", () => {
         projectDatas={projectDatas}
         setEditedSubType={() => {}}
         setMarkers={mockSetMarkers}
-      />
+      />,
     );
 
     const deleteButton = getByText(i18n.t("delete"));
     fireEvent.click(deleteButton);
 
-    expect(mockHandleMarkerDelete).toHaveBeenCalledWith(marker.id);
+    expect(mockHandleMarkerDelete).toHaveBeenCalledWith(marker.id, undefined);
   });
 });

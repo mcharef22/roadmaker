@@ -41,7 +41,11 @@ const InfoPointMenu = ({
             setShowInfoPointMenu(false);
           }}
         >
-          <img style={{ width: "25px" }} src={touristicIconPath} />{" "}
+          <img
+            style={{ width: "25px" }}
+            src={touristicIconPath}
+            alt={t("touristicPI")}
+          />{" "}
           <span>{t("touristicPI")}</span>
         </button>
         <br />
@@ -52,7 +56,11 @@ const InfoPointMenu = ({
             setShowInfoPointMenu(false);
           }}
         >
-          <img style={{ width: "25px" }} src={standardIconPath} />
+          <img
+            style={{ width: "25px" }}
+            src={standardIconPath}
+            alt={t("standardPI")}
+          />
           <span>{t("standardPI")}</span>
         </button>
         <br />
@@ -63,7 +71,11 @@ const InfoPointMenu = ({
             setShowInfoPointMenu(false);
           }}
         >
-          <img style={{ width: "25px" }} src={structureIconPath} />
+          <img
+            style={{ width: "25px" }}
+            src={structureIconPath}
+            alt={t("structurePI")}
+          />
           <span>{t("structurePI")}</span>
         </button>
       </div>

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { USERS_ROUTE, USER_ROUTE } from "../map/gpx/Resources";
 import { apiUrl } from "../../config";
+import bcryptShim from "../../shims/bcryptShim";
 
 function Connexion() {
   const [login, setLogin] = useState("");
@@ -21,7 +22,7 @@ function Connexion() {
   const [userData, setUserData] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const bcrypt = require("bcryptjs");
+  const bcrypt = bcryptShim;
   const { t } = useTranslation();
   const LOGO_CONNEXION_IMG = "/rm_imgs/logo_connexion.png";
 

@@ -11,6 +11,8 @@ const OpenQuestionMarkerForm = ({
   handleAnswerChange,
   handleSuccessMessageChange,
   handleErrorMessageChange,
+  handleInputFocus,
+  handleInputBlur,
   index,
 }) => {
   const { t } = useTranslation();
@@ -22,24 +24,32 @@ const OpenQuestionMarkerForm = ({
         markerText={question}
         setMarkerText={(value) => handleQuestionChange(value, index)}
         index={index}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       />
       <label className="mt-4">{t("quizAnswer")}</label>
       <StyledText
         markerText={answer}
         setMarkerText={(value) => handleAnswerChange(value, index)}
         index={index}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       />
       <label className="mt-4">{t("successMessageQuiz")}</label>
       <StyledText
         markerText={successMessage}
         setMarkerText={(value) => handleSuccessMessageChange(value, index)}
         index={index}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       />
       <label className="mt-4">{t("errorMessageQuiz")}</label>
       <StyledText
         markerText={errorMessage}
         setMarkerText={(value) => handleErrorMessageChange(value, index)}
         index={index}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       />
     </>
   );

@@ -15,8 +15,8 @@ const MarkerInfos = ({
   const { t } = useTranslation();
   return (
     <div className="d-flex flex-column justify-content-center mt-5">
-      {marker.type != markerTypes.step &&
-        marker.type != markerTypes.touristic && (
+      {marker.type !== markerTypes.step &&
+        marker.type !== markerTypes.touristic && (
           <>
             <div className="d-flex ms-4 text-start">
               <h6 className="ms-4" data-testid="title">
@@ -32,9 +32,9 @@ const MarkerInfos = ({
                 />
               </h6>
             </div>
-            {marker.type != markerTypes.origin &&
-              marker.type != markerTypes.destination &&
-              marker.type != markerTypes.structure && (
+            {marker.type !== markerTypes.origin &&
+              marker.type !== markerTypes.destination &&
+              marker.type !== markerTypes.structure && (
                 <div className="d-flex ms-4 mt-1 text-start">
                   <h6 className="ms-4">
                     Distance :{" "}
@@ -76,7 +76,7 @@ const MarkerInfos = ({
           </h6>
         </div>
       )}
-      {marker.type != markerTypes.step && (
+      {marker.type !== markerTypes.step && (
         <div className="d-flex align-items-center justify-content-center">
           <button
             onClick={() => setEditing(true)}

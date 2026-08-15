@@ -51,6 +51,7 @@ const QcmImageTouristicMarker = ({ marker }) => {
                           {answer && (
                             <img
                               src={answer}
+                              alt={t("answerImage")}
                               className="imageMarker"
                               style={{
                                 maxHeight: "200px",

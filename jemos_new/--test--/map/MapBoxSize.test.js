@@ -6,16 +6,16 @@ describe("MapBoxSize", () => {
   test("call setMapDimensions with the correct dimensions when the range input is changed", () => {
     const setMapDimensionsMock = jest.fn();
     const { getByLabelText } = render(
-      <MapBoxSize zoom={1000} setMapDimensions={setMapDimensionsMock} />
+      <MapBoxSize zoom={50} setMapDimensions={setMapDimensionsMock} />,
     );
 
     const rangeInput = getByLabelText("input-size");
-    fireEvent.change(rangeInput, { target: { value: 1200 } });
+    fireEvent.change(rangeInput, { target: { value: 96 } });
 
     expect(setMapDimensionsMock).toHaveBeenCalledTimes(1);
     expect(setMapDimensionsMock).toHaveBeenCalledWith({
-      height: "1200px",
-      width: "1200px",
+      height: "96%",
+      width: "96%",
     });
   });
 });

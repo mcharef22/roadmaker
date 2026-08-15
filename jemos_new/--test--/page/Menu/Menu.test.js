@@ -4,10 +4,10 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import i18n from "i18next";
 import DropDownPersonnalSpace from "../../../src/components/home/DropDownPersonnalSpace";
 
-const testLanguage = 'fr';
+const testLanguage = "fr";
 
 // Mock de la fonction de traduction
-jest.mock('i18next', () => ({
+jest.mock("i18next", () => ({
   t: jest.fn((key) => key),
   init: jest.fn(),
 }));
@@ -15,14 +15,23 @@ jest.mock('i18next', () => ({
 jest.mock("../../../src/components/user/UserProfile", () => {});
 jest.mock("../../../src/components/map/gpx/Resources", () => ({}));
 
+jest.mock("../../../src/components/home/Cart", () => {
+  return jest.fn(() => <div>Cart</div>);
+});
+
+jest.mock("../../../src/components/util/LanguageSelector", () => {
+  return jest.fn(() => <div>LanguageSelector</div>);
+});
+
 jest.mock("../../../src/components/util/ThemeSelector", () => {
   return jest.fn(() => <div>ThemeSelector</div>);
 });
 
 jest.mock("../../../src/components/home/DropDownPersonnalSpace", () => {
-    return jest.fn(() => <div aria-label="Mon espace">DropDownPersonnalSpace</div>);
+  return jest.fn(() => (
+    <div aria-label="Mon espace">DropDownPersonnalSpace</div>
+  ));
 });
-
 
 describe("Menu", () => {
   const props = {
@@ -58,18 +67,17 @@ describe("Menu", () => {
     render(<Menu {...nonAdminProps} />);
 
     expect(
-      screen.queryByLabelText("Liste des utilisateurs")
+      screen.queryByLabelText("Liste des utilisateurs"),
     ).not.toBeInTheDocument();
     expect(screen.getByLabelText("Choix du projet")).toBeInTheDocument();
     expect(screen.getByText("DropDownPersonnalSpace")).toBeInTheDocument();
   });
 
-
   test("clicking on Liste des utilisateurs button calls setShowUsers", () => {
     render(<Menu {...props} />);
 
     const listeDesUtilisateursButton = screen.getByLabelText(
-      "Liste des utilisateurs"
+      "Liste des utilisateurs",
     );
     fireEvent.click(listeDesUtilisateursButton);
     expect(props.setVisibleComponent).toHaveBeenCalledWith("Users");

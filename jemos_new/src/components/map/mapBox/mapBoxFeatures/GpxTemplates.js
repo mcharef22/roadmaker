@@ -17,7 +17,7 @@ export const generateGPXEMLFile = (
   subTypeNumber,
   ICON_INDEX_PREFIX,
   strcuturePoiIcon,
-  trkType
+  trkType,
 ) => {
   return `<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
     <gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" creator="EcoMobile Loisirs" version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
@@ -53,12 +53,13 @@ export const generateGPXEMLFile = (
                   <om:oruxmapsextensions xmlns:om="http://www.oruxmaps.com/oruxmapsextensions/1/0">
                     <om:ext type="ICON" subtype="0">${iconNumber(type)}</om:ext>
                     <om:ext type="DISTANCE">${getDistanceValue(
-                      step.distance.value
+                      step.distance.value,
                     )}</om:ext>
                   </om:oruxmapsextensions>
                 </extensions>
               </wpt>`;
           }
+          return "";
         })
         .join("")}
       
@@ -79,13 +80,14 @@ export const generateGPXEMLFile = (
                 <extensions>
                   <om:oruxmapsextensions xmlns:om="http://www.oruxmaps.com/oruxmapsextensions/1/0">
                     <om:ext type="ICON" subtype="0">${subTypeNumber(
-                      marker.subType
+                      marker.subType,
                     )}</om:ext>
                     <om:ext type="DISTANCE">${marker.distanceToMarker}</om:ext>
                   </om:oruxmapsextensions>
                 </extensions>
               </wpt>`;
           }
+          return "";
         })
         .join("")}
     
@@ -123,7 +125,7 @@ export const generateGPXEMLFile = (
                             <om:oruxmapsextensions xmlns:om="http://www.oruxmaps.com/oruxmapsextensions/1/0">
                                 <om:ext type="ICON" subtype="0">${marker.iconName.replace(
                                   ICON_INDEX_PREFIX,
-                                  ""
+                                  "",
                                 )}</om:ext>
                                 <om:ext type="DISTANCE">${
                                   marker.distanceToMarker
@@ -139,11 +141,11 @@ export const generateGPXEMLFile = (
                                     ? marker.imageName
                                         .filter(
                                           (image) =>
-                                            image !== marker.mainResource
+                                            image !== marker.mainResource,
                                         )
                                         .map(
                                           (image) =>
-                                            `<om:ext type="IMAGEN" subtype="0">/storage/emulated/0/Circuits/Wpts/Image/${image}</om:ext>\n`
+                                            `<om:ext type="IMAGEN" subtype="0">/storage/emulated/0/Circuits/Wpts/Image/${image}</om:ext>\n`,
                                         )
                                         .join("")
                                     : ""
@@ -154,11 +156,11 @@ export const generateGPXEMLFile = (
                                     ? marker.audioName
                                         .filter(
                                           (audio) =>
-                                            audio !== marker.mainResource
+                                            audio !== marker.mainResource,
                                         )
                                         .map(
                                           (audio) =>
-                                            `<om:ext type="AUDIO" subtype="0">/storage/emulated/0/Circuits/Wpts/Audio/${audio}</om:ext>\n`
+                                            `<om:ext type="AUDIO" subtype="0">/storage/emulated/0/Circuits/Wpts/Audio/${audio}</om:ext>\n`,
                                         )
                                         .join("")
                                     : ""
@@ -169,11 +171,11 @@ export const generateGPXEMLFile = (
                                     ? marker.videoName
                                         .filter(
                                           (video) =>
-                                            video !== marker.mainResource
+                                            video !== marker.mainResource,
                                         )
                                         .map(
                                           (video) =>
-                                            `<om:ext type="VIDEO" subtype="0">/storage/emulated/0/Circuits/Wpts/Video/${video}</om:ext>\n`
+                                            `<om:ext type="VIDEO" subtype="0">/storage/emulated/0/Circuits/Wpts/Video/${video}</om:ext>\n`,
                                         )
                                         .join("")
                                     : ""
@@ -193,7 +195,7 @@ export const generateGPXEMLFile = (
                 marker.type === markerTypes.origin ||
                 (!destinationSameAsOrigin &&
                   marker.type === markerTypes.destination) ||
-                marker.type === markerTypes.structure
+                marker.type === markerTypes.structure,
             )
             .map(
               (marker) => `
@@ -211,7 +213,7 @@ export const generateGPXEMLFile = (
                           </om:oruxmapsextensions>
                       </extensions>
                   </wpt>
-              `
+              `,
             )
             .join("")}            
                   
@@ -236,9 +238,9 @@ export const generateGPXEMLFile = (
               ${trkseg
                 .map(
                   (
-                    location
+                    location,
                   ) => `<trkpt lat="${location.lat()}" lon="${location.lng()}"></trkpt>
-                      `
+                      `,
                 )
                 .join("")}
               ${
@@ -257,7 +259,7 @@ export const generateGPXEMLFile = (
                   .map(
                     (coord) =>
                       `<trkpt lat="${coord.latitude}" lon="${coord.longitude}"></trkpt>
-                      `
+                      `,
                   )
                   .join("")}
               </trkseg>
@@ -284,7 +286,7 @@ export const RoadPlayerGPX = (
   subTypeNumber,
   ICON_INDEX_PREFIX,
   strcuturePoiIcon,
-  trkType
+  trkType,
 ) => {
   return `<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
     <gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" creator="EcoMobile Loisirs" version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
@@ -320,7 +322,7 @@ export const RoadPlayerGPX = (
               <om:oruxmapsextensions xmlns:om="http://www.oruxmaps.com/oruxmapsextensions/1/0">
                 <om:ext type="ICON" subtype="0">${iconNumber(type)}</om:ext>
                 <om:ext type="DISTANCE">${getDistanceValue(
-                  step.distance.value
+                  step.distance.value,
                 )}</om:ext>
               </om:oruxmapsextensions>
             </extensions>
@@ -346,7 +348,7 @@ export const RoadPlayerGPX = (
             <extensions>
               <om:oruxmapsextensions xmlns:om="http://www.oruxmaps.com/oruxmapsextensions/1/0">
                 <om:ext type="ICON" subtype="0">${subTypeNumber(
-                  marker.subType
+                  marker.subType,
                 )}</om:ext>
                 <om:ext type="DISTANCE">${marker.distanceToMarker}</om:ext>
               </om:oruxmapsextensions>
@@ -363,40 +365,40 @@ export const RoadPlayerGPX = (
           const imageNames = marker.imageName
             ? marker.imageName.map(
                 (imageName) =>
-                  `<imageName><![CDATA[${imageName}]]></imageName>\n`
+                  `<imageName><![CDATA[${imageName}]]></imageName>\n`,
               )
             : "";
           const imagesrc = marker.image
             ? marker.image.map(
-                (image) => `<image><![CDATA[${image}]]></image>\n`
+                (image) => `<image><![CDATA[${image}]]></image>\n`,
               )
             : "";
           const videoNames = marker.videoName
             ? marker.videoName.map(
                 (videoName) =>
-                  `<videoName><![CDATA[${videoName}]]></videoName>\n`
+                  `<videoName><![CDATA[${videoName}]]></videoName>\n`,
               )
             : "";
           const videosrc = marker.video
             ? marker.video.map(
-                (video) => `<video><![CDATA[${video}]]></video>\n`
+                (video) => `<video><![CDATA[${video}]]></video>\n`,
               )
             : "";
           const audioNames = marker.audioName
             ? marker.audioName.map(
                 (audioName) =>
-                  `<audioName><![CDATA[${audioName}]]></audioName>\n`
+                  `<audioName><![CDATA[${audioName}]]></audioName>\n`,
               )
             : "";
           const audiosrc = marker.audio
             ? marker.audio.map(
-                (audio) => `<audio><![CDATA[${audio}]]></audio>\n`
+                (audio) => `<audio><![CDATA[${audio}]]></audio>\n`,
               )
             : "";
           const resourcesArray = marker.resourceArray
             ? marker.resourceArray.map(
                 (resourceArray) =>
-                  `<resourceArray><![CDATA[${resourceArray}]]></resourceArray>\n`
+                  `<resourceArray><![CDATA[${resourceArray}]]></resourceArray>\n`,
               )
             : "";
           const openQuestionArray = marker.openQuestionArray
@@ -430,7 +432,7 @@ export const RoadPlayerGPX = (
                   const correctAnswersString = correctAnswers
                     .map(
                       (correct) =>
-                        `<correctAnswer><![CDATA[${correct}]]></correctAnswer>`
+                        `<correctAnswer><![CDATA[${correct}]]></correctAnswer>`,
                     )
                     .join("\n");
                   return `<qcmArray>
@@ -468,7 +470,7 @@ export const RoadPlayerGPX = (
                   const correctAnswersString = correctAnswers
                     .map(
                       (correct) =>
-                        `<correctAnswer><![CDATA[${correct}]]></correctAnswer>`
+                        `<correctAnswer><![CDATA[${correct}]]></correctAnswer>`,
                     )
                     .join("\n");
 
@@ -487,8 +489,8 @@ export const RoadPlayerGPX = (
 
           return `
             <wpt lat="${marker.lat}" lon="${
-            marker.lng
-          }" id="touristic" id-marker="${marker.id}">
+              marker.lng
+            }" id="touristic" id-marker="${marker.id}">
             ${
               marker.description &&
               `<desc><![CDATA[${marker.description}]]></desc>`
@@ -533,7 +535,7 @@ export const RoadPlayerGPX = (
             marker.type === markerTypes.origin ||
             (!destinationSameAsOrigin &&
               marker.type === markerTypes.destination) ||
-            marker.type === markerTypes.structure
+            marker.type === markerTypes.structure,
         )
         .map(
           (marker) => `
@@ -551,7 +553,7 @@ export const RoadPlayerGPX = (
                       </om:oruxmapsextensions>
                   </extensions>
               </wpt>
-          `
+          `,
         )
         .join("")}            
               
@@ -576,9 +578,9 @@ export const RoadPlayerGPX = (
           ${trkseg
             .map(
               (
-                location
+                location,
               ) => `<trkpt lat="${location.lat()}" lon="${location.lng()}"></trkpt>
-                  `
+                  `,
             )
             .join("")}
           ${
@@ -597,7 +599,7 @@ export const RoadPlayerGPX = (
               .map(
                 (coord) =>
                   `<trkpt lat="${coord.latitude}" lon="${coord.longitude}"></trkpt>
-                  `
+                  `,
               )
               .join("")}
           </trkseg>

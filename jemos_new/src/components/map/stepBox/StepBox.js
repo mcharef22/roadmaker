@@ -59,13 +59,17 @@ const StepBox = ({
     },
     {
       otherMarkers: [],
-    }
+    },
   );
 
   return (
     <div className="step-box">
       <div className="headerStepBox">
-        <img src="/rm_imgs/logo_connexion.png" className="logoStepBox"></img>
+        <img
+          src="/rm_imgs/logo_connexion.png"
+          alt="logo"
+          className="logoStepBox"
+        />
         <div className="detailsStepBox d-flex align-items-center">
           <details
             onClick={() => {

@@ -1,7 +1,7 @@
 import React from "react";
 import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
-import { indicationTypes } from "../gpx/Resources";
+import { indicationTypes as defaultIndicationTypes } from "../gpx/Resources";
 
 function AddStepForm({
   handleSubmit,
@@ -10,6 +10,7 @@ function AddStepForm({
   setNewStepDistance,
   setNewStepType,
   setNewStepCoordinates,
+  indicationTypes = defaultIndicationTypes,
 }) {
   const { t } = useTranslation();
   return (

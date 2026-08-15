@@ -153,7 +153,7 @@ export function formatDateHour(date, language) {
   };
   const formattedHour = new Date(date).toLocaleTimeString(
     language,
-    timeOptions
+    timeOptions,
   );
   const formattedDate = new Date(date).toLocaleString(language, options);
   return formattedDate + " (" + formattedHour + ")";
@@ -209,48 +209,38 @@ export function filterItems(items, filters) {
 
 export function convertGpxToKml(gpxContent) {
   try {
-    const xmlParser = require("xml-js");
+    if (typeof DOMParser === "undefined") {
+      // In non-browser environments, bail out
+      return null;
+    }
 
-    // Parse the GPX content
-    const gpxData = xmlParser.xml2js(gpxContent, { compact: true });
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(gpxContent, "application/xml");
+    const trkpts = Array.from(doc.querySelectorAll("trkpt"));
+    const coords = trkpts
+      .map((pt) => {
+        const lat = pt.getAttribute("lat");
+        const lon = pt.getAttribute("lon");
+        if (lat && lon) return `${lon},${lat}`;
+        return null;
+      })
+      .filter(Boolean);
 
-    // Create a KML object
-    const kmlData = {
-      _declaration: {
-        _attributes: {
-          version: "1.0",
-          encoding: "UTF-8",
-        },
-      },
-      kml: {
-        _attributes: {
-          xmlns: "http://www.opengis.net/kml/2.2",
-        },
-        Document: {
-          Placemark: {
-            name: { _text: "GPX Track" },
-            LineString: {
-              coordinates: { _text: "" },
-            },
-          },
-        },
-      },
-    };
+    const kmlLines = [
+      `<?xml version="1.0" encoding="UTF-8"?>`,
+      `<kml xmlns="http://www.opengis.net/kml/2.2">`,
+      `  <Document>`,
+      `    <Placemark>`,
+      `      <name>GPX Track</name>`,
+      `      <LineString>`,
+      `        <coordinates>${coords.join(" ")}</coordinates>`,
+      `      </LineString>`,
+      `    </Placemark>`,
+      `  </Document>`,
+      `</kml>`,
+    ];
 
-    // Extract coordinates from GPX and add them to KML
-    const coordinates = gpxData.gpx.trk.trkseg.trkpt.map((point) => {
-      const lat = point._attributes.lat;
-      const lon = point._attributes.lon;
-      return `${lon},${lat}`;
-    });
-
-    kmlData.kml.Document.Placemark.LineString.coordinates._text =
-      coordinates.join(" ");
-
-    // Convert KML data back to XML
-    const kmlXML = xmlParser.js2xml(kmlData, { compact: true, spaces: 2 });
-
-    return kmlXML;
+    return kmlLines.join("\n");
   } catch (error) {
     console.error("Error converting GPX to KML:", error);
     return null;
@@ -265,7 +255,7 @@ export function normalizeFileName(fileName) {
   if (typeof fileName !== "string") {
     console.log(fileName);
     throw new Error(
-      "Le paramètre fileName doit être une chaîne de caractères."
+      "Le paramètre fileName doit être une chaîne de caractères.",
     );
   }
 
@@ -331,7 +321,7 @@ export async function uploadFileToGithub(file, markerId, githubRepo) {
   } catch (error) {
     console.error(
       "Une erreur s'est produite lors du téléchargement du fichier:",
-      error
+      error,
     );
     throw error;
   }
@@ -341,7 +331,7 @@ export async function uploadBase64Image(
   base64Data,
   imageName,
   markerId,
-  githubRepo
+  githubRepo,
 ) {
   // Convertir l'image base64 en Blob
   const byteString = atob(base64Data.split(",")[1]);
@@ -366,7 +356,7 @@ export function handleTextStyle(
   style,
   setMarkerDescription,
   editorRef,
-  isTextSelected
+  isTextSelected,
 ) {
   if (!isTextSelected()) return;
   document.execCommand(style, false, null);

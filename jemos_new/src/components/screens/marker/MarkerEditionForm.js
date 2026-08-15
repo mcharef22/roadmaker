@@ -44,94 +44,94 @@ const MarkerEditionForm = (props) => {
   const { iconIndexArray, setIconIndexArray } = useContext(UserContext);
 
   const [markerTitle, setMarkerTitle] = useState(
-    marker.title ? marker.title : ""
+    marker.title ? marker.title : "",
   );
   const [markerSubType, setMarkerSubType] = useState("");
   const [markerDescription, setMarkerDescription] = useState(
-    marker.description ? marker.description : ""
+    marker.description ? marker.description : "",
   );
   const [markerAudio, setMarkerAudio] = useState(
-    marker.audio ? marker.audio : []
+    marker.audio ? marker.audio : [],
   );
   const [markerVideo, setMarkerVideo] = useState(
-    marker.video ? marker.video : []
+    marker.video ? marker.video : [],
   );
   const [markerImage, setMarkerImage] = useState(
-    marker.image ? marker.image : []
+    marker.image ? marker.image : [],
   );
   const [markerIcon, setMarkerIcon] = useState(
-    marker.iconImage ? marker.iconImage : ""
+    marker.iconImage ? marker.iconImage : "",
   );
   const [iconName, setIconName] = useState(
-    marker.iconName ? marker.iconName : ""
+    marker.iconName ? marker.iconName : "",
   );
   const [iconNameWithoutBorder, setIconNameWithoutBorder] = useState(
-    marker.iconNameWithoutBorder ? marker.iconNameWithoutBorder : ""
+    marker.iconNameWithoutBorder ? marker.iconNameWithoutBorder : "",
   );
   const [markerImageName, setMarkerImageName] = useState(
-    marker.imageName ? marker.imageName : []
+    marker.imageName ? marker.imageName : [],
   );
   const [markerVideoName, setMarkerVideoName] = useState(
-    marker.videoName ? marker.videoName : []
+    marker.videoName ? marker.videoName : [],
   );
   const [markerAudioName, setMarkerAudioName] = useState(
-    marker.audioName ? marker.audioName : []
+    marker.audioName ? marker.audioName : [],
   );
   const [markerDistance, setMarkerDistance] = useState(
     marker.distanceToMarker
       ? marker.distanceToMarker
       : marker.checkAudio
         ? DISTANCE_TO_TRIGGER_AUDIO
-        : -1
+        : -1,
   );
   const [markerCheckAudio, setMarkerCheckAudio] = useState(
-    marker.checkAudio ? marker.checkAudio : null
+    marker.checkAudio ? marker.checkAudio : null,
   );
   const [markerAccesValue, setMarkerAccesValue] = useState(
-    marker.checkAcces ? marker.checkAcces : ""
+    marker.checkAcces ? marker.checkAcces : "",
   );
   const [showInputImage, setShowInputImage] = useState(false);
   const [showInputVideo, setShowInputVideo] = useState(false);
   const [showInputAudio, setShowInputAudio] = useState(false);
   const [showInputIcon, setShowInputIcon] = useState(false);
   const [markerToDownload, setMarkerToDownload] = useState(
-    marker.markerToDownload ? marker.markerToDownload : ""
+    marker.markerToDownload ? marker.markerToDownload : "",
   );
   const imageArray = marker.imageName ? marker.imageName : [];
   const videoArray = marker.videoName ? marker.videoName : [];
   const audioArray = marker.audioName ? marker.audioName : [];
   const resources = [...imageArray, ...videoArray, ...audioArray];
   const [resourceArray, setResourceArray] = useState(
-    marker.resourceArray ? marker.resourceArray : resources
+    marker.resourceArray ? marker.resourceArray : resources,
   );
   const [mainResource, setMainResource] = useState(
     marker.mainResource
       ? marker.mainResource
       : marker.resourceArray
         ? marker.resourceArray[0]
-        : ""
+        : "",
   );
   const [triggerType, setTriggerType] = useState(
-    marker.triggerType ? marker.triggerType : ""
+    marker.triggerType ? marker.triggerType : "",
   );
   const [triggerDistance, setTriggerDistance] = useState(
-    marker.triggerDistance ? marker.triggerDistance : null
+    marker.triggerDistance ? marker.triggerDistance : null,
   );
 
   const [url, setUrl] = useState(marker.url ? marker.url : "");
   const [markerOpenQuestion, setMarkerOpenQuestion] = useState(
     marker.openQuestionArray && marker.openQuestionArray.length > 0
       ? marker.openQuestionArray
-      : []
+      : [],
   );
   const [markerQcmArray, setMarkerQcmArray] = useState(
-    marker.qcmArray && marker.qcmArray.length > 0 ? marker.qcmArray : []
+    marker.qcmArray && marker.qcmArray.length > 0 ? marker.qcmArray : [],
   );
 
   const [markerQcmImageArray, setMarkerQcmImageArray] = useState(
     marker.qcmImageArray && marker.qcmImageArray.length > 0
       ? marker.qcmImageArray
-      : []
+      : [],
   );
 
   /**
@@ -143,7 +143,7 @@ const MarkerEditionForm = (props) => {
     console.log("jest: Appeller la fonction saveMarkerInfos");
     event.preventDefault();
     const markerToUpdate = markers.find(
-      (marker) => marker.id === selectedMarkerId
+      (marker) => marker.id === selectedMarkerId,
     );
     if (markerToUpdate) {
       if (markerTitle) {
@@ -216,7 +216,10 @@ const MarkerEditionForm = (props) => {
         setMarkerAudioName("");
       }
 
-      if (iconNameWithoutBorder && (iconNameWithoutBorder.includes("") || iconNameWithoutBorder.length > 0)) {
+      if (
+        iconNameWithoutBorder &&
+        (iconNameWithoutBorder.includes("") || iconNameWithoutBorder.length > 0)
+      ) {
         markerToUpdate.iconNameWithoutBorder = iconNameWithoutBorder;
         setIconNameWithoutBorder("");
       }
@@ -280,7 +283,7 @@ const MarkerEditionForm = (props) => {
       .catch((error) => {
         console.error(
           "Une erreur s'est produite lors de la génération de l'icône :",
-          error
+          error,
         );
       });
   };
@@ -398,7 +401,7 @@ const MarkerEditionForm = (props) => {
       } catch (error) {
         console.error(
           "Une erreur s'est produite lors de la mise à jour de l'audio:",
-          error
+          error,
         );
       } finally {
         // Fermer le loading box
@@ -443,7 +446,7 @@ const MarkerEditionForm = (props) => {
       } catch (error) {
         console.error(
           "Une erreur s'est produite lors de la mise à jour de l'audio:",
-          error
+          error,
         );
       } finally {
         // fermeture de loading box
@@ -489,7 +492,7 @@ const MarkerEditionForm = (props) => {
       } catch (error) {
         console.error(
           "Une erreur s'est produite lors de la mise à jour de la vidéo:",
-          error
+          error,
         );
       } finally {
         // Fermer le loading box
@@ -507,7 +510,7 @@ const MarkerEditionForm = (props) => {
     if (lastName === "Libre") return DEFAULT_ICON_INDEX_ARRAY;
     if (lastName.includes(ICON_INDEX_DELETED))
       index = parseInt(
-        lastName.replace(ICON_INDEX_DELETED + ICON_INDEX_PREFIX, "")
+        lastName.replace(ICON_INDEX_DELETED + ICON_INDEX_PREFIX, ""),
       );
     else index = parseInt(lastName.replace(ICON_INDEX_PREFIX, ""));
     newIndex = index + 1;
@@ -542,15 +545,20 @@ const MarkerEditionForm = (props) => {
   };
   return (
     <form onSubmit={saveMarkerInfos} data-testid="marker-form">
-      {marker.type != markerTypes.touristic && (
+      {marker.type !== markerTypes.touristic && (
         <>
           <label className="mt-4">{t("title")}</label>
-          <StyledText markerText={markerTitle} setMarkerText={setMarkerTitle} />
+          <StyledText
+            markerText={markerTitle}
+            setMarkerText={setMarkerTitle}
+            ariaLabel="input-titre"
+          />
 
           <label className="mt-4">{t("description")}</label>
           <StyledText
             markerText={markerDescription}
             setMarkerText={setMarkerDescription}
+            ariaLabel="input-description"
           />
 
           <div className="divLabelInput">

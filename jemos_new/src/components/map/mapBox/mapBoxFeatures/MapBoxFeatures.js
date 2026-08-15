@@ -34,14 +34,22 @@ const MapBoxFeatures = ({
       <div className="d-flex mb-4">
         <button
           className={` ${initialButtonNavigationsVisibility}`}
-          onClick={toggleNavigationPanel}
+          onClick={() =>
+            showNavigationPanel
+              ? showNavigationPanel()
+              : toggleNavigationPanel && toggleNavigationPanel()
+          }
         >
           {t("initialDirections")}
         </button>
         <button
           className={`${customNavigationButtonClass}`}
-          onClick={toggleCustomNavigationPanel}
-        > 
+          onClick={() =>
+            showCustomNavigationPanel
+              ? showCustomNavigationPanel()
+              : toggleCustomNavigationPanel && toggleCustomNavigationPanel()
+          }
+        >
           {t("customDirections")}
         </button>
       </div>

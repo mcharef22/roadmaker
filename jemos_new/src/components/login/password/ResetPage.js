@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { USER_ROUTE } from "../../map/gpx/Resources";
 import { apiUrl } from "../../../config";
+import bcryptShim from "../../../shims/bcryptShim";
 
-function ResetPage() {
+function ResetPage(props) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const email = searchParams.get("email");
+  const emailFromQuery = searchParams.get("email");
+  const email = props && props.email ? props.email : emailFromQuery;
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [oldMdp, setOldMdb] = useState("");
@@ -18,7 +20,7 @@ function ResetPage() {
   const [confirmMdp, setConfirmMdp] = useState("");
   const [userId, setUserId] = useState("");
 
-  const bcrypt = require("bcryptjs");
+  const bcrypt = bcryptShim;
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -39,7 +41,7 @@ function ResetPage() {
       .catch((error) => {
         console.error(
           "Erreur lors de la recherche de l'ID de l'utilisateur:",
-          error
+          error,
         );
       });
   }, [email]);
@@ -83,7 +85,7 @@ function ResetPage() {
       .catch((error) => {
         console.error(
           "Erreur lors de la réinitialisation du mot de passe:",
-          error
+          error,
         );
       });
   };

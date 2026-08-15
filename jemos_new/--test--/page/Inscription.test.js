@@ -72,6 +72,11 @@ describe("Inscription component", () => {
       _id: "user123", // Assurez-vous d'ajouter un ID pour simuler une réponse réussie
     });
 
+    // Simuler la réponse à la requête POST de création du client Stripe
+    mockAdapter.onPost(apiUrl + "/user/stripe-customer").reply(200, {
+      customerId: "cus_123",
+    });
+
     // Simuler la réponse à la requête PUT après la création du client Stripe
     mockAdapter.onPut(apiUrl + "/user/user123").reply(200, {
       stripeCustomerId: "stripe123", // Simuler un stripeCustomerId
@@ -112,7 +117,7 @@ describe("Inscription component", () => {
 
     await waitFor(() => {
       expect(console.log).toHaveBeenCalledWith(
-        "jest: Mots de passe différents"
+        "jest: Mots de passe différents",
       );
       console.log.mockRestore();
     });

@@ -52,12 +52,17 @@ const RessourceMarkerForm = ({
     <>
       <div className="m-4">
         <label className="mt-4">{t("title")}</label>
-        <StyledText markerText={markerTitle} setMarkerText={setMarkerTitle} />
+        <StyledText
+          markerText={markerTitle}
+          setMarkerText={setMarkerTitle}
+          ariaLabel="input-titre"
+        />
 
         <label className="mt-4">{t("description")}</label>
         <StyledText
           markerText={markerDescription}
           setMarkerText={setMarkerDescription}
+          ariaLabel="input-description"
         />
       </div>
       {/* /////////////////////////////////////////////affichage d'image ////////////////////////////////////////////////// */}

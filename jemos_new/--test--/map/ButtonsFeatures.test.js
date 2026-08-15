@@ -13,6 +13,9 @@ jest.mock("i18next", () => ({
 }));
 
 describe("ButtonsFeatures", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   const sendDataToServMock = jest.fn();
   const handleCompileMock = jest.fn();
   const handleExportMock = jest.fn();
@@ -42,7 +45,7 @@ describe("ButtonsFeatures", () => {
         setShowInputGPX={setShowInputGPXMock}
         setShowInputGPXKml={setShowInputGPXKmlMock}
         {...props}
-      />
+      />,
     );
   };
 
@@ -54,9 +57,10 @@ describe("ButtonsFeatures", () => {
   });
 
   test("calls handleExport when 'Exporter' button is clicked", () => {
-    const { getByText } = renderButtonsFeatures();
-    const exporterButton = getByText(i18n.t("export"));
-    fireEvent.click(exporterButton);
+    const { getAllByText } = renderButtonsFeatures();
+    // export -> first 'locally' corresponds to export locally
+    const exportLocallyButton = getAllByText(i18n.t("locally"))[0];
+    fireEvent.click(exportLocallyButton);
     expect(handleExportMock).toHaveBeenCalledTimes(1);
   });
 
@@ -87,15 +91,30 @@ describe("ButtonsFeatures", () => {
     },
   ];
 
-  buttonTestCases.forEach((testCase) => {
-    test(`button '${testCase.buttonName}'`, () => {
-      jest.spyOn(console, "log");
-      const { getByText } = renderButtonsFeatures({
-        premiumUser: testCase.premiumUser,
-      });
-      const button = getByText(testCase.buttonName);
-      fireEvent.click(button);
-      expect(console.log).toHaveBeenCalledWith(testCase.logMessage);
-    });
+  test("download locally calls handleCompile", () => {
+    const { getAllByText } = renderButtonsFeatures();
+    const downloadLocally = getAllByText(i18n.t("locally"))[1];
+    fireEvent.click(downloadLocally);
+    expect(handleCompileMock).toHaveBeenCalledTimes(1);
+  });
+
+  test("onRoadPlayer calls handleCompile when user is Premium", () => {
+    const { getByText } = renderButtonsFeatures({ userPack: "Premium" });
+    const button = getByText(i18n.t("onRoadPlayer"));
+    fireEvent.click(button);
+    expect(handleCompileMock).toHaveBeenCalledTimes(1);
+  });
+
+  test("import parcours/kml/gpx toggles inputs", () => {
+    const { getByText } = renderButtonsFeatures();
+    const parcoursBtn = getByText(i18n.t("parcours"));
+    fireEvent.click(parcoursBtn);
+    expect(setShowInputGPXKmlMock).toHaveBeenCalled();
+    const kmlBtn = getByText(i18n.t("kml"));
+    fireEvent.click(kmlBtn);
+    expect(setShowInputKMLMock).toHaveBeenCalled();
+    const gpxBtn = getByText(i18n.t("gpx"));
+    fireEvent.click(gpxBtn);
+    expect(setShowInputGPXMock).toHaveBeenCalled();
   });
 });

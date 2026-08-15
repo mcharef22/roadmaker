@@ -22,8 +22,8 @@ export const printQrCodeHTML = (logo, imgData) => {
       </style>
     </head>
     <body>
-      <img className="logo" src="${logo}" alt="Logo" />
-      <img className="qrcode" src="${imgData}"/>
+      <img class="logo" src="${logo}" alt="Logo" />
+      <img class="qrcode" src="${imgData}" alt="QR code" />
     </body>
   </html>`;
 };
