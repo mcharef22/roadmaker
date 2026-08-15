@@ -8,10 +8,8 @@ import Root from "./Root";
 import DialogBox from "../util/DialogBox";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { USERS_ROUTE, USER_ROUTE } from "../map/gpx/Resources";
+import { USER_ROUTE } from "../map/gpx/Resources";
 import { apiUrl } from "../../config";
-import bcryptShim from "../../shims/bcryptShim";
-
 function Connexion() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +20,6 @@ function Connexion() {
   const [userData, setUserData] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const bcrypt = bcryptShim;
   const { t } = useTranslation();
   const LOGO_CONNEXION_IMG = "/rm_imgs/logo_connexion.png";
 
@@ -35,57 +32,50 @@ function Connexion() {
     e.preventDefault();
 
     try {
-      const response = await axios.get(apiUrl + USERS_ROUTE);
-      const users = response.data;
+      const response = await axios.post(`${apiUrl}/login`, {
+        email: login,
+        password,
+      });
 
-      const user = users.find(
-        (user) =>
-          user.email === login && bcrypt.compareSync(password, user.password),
-      );
+      const user = response.data;
 
-      if (user) {
-        console.log("jest: User exist");
+      console.log("jest: User exist");
 
-        // Confirmation email ignorée temporairement
+      if (!user.stripeCustomerId) {
+        const stripeResponse = await axios.post(
+          `${apiUrl}/user/stripe-customer`,
+          {
+            email: user.email,
+          },
+        );
 
-        if (!user.stripeCustomerId) {
-          const stripeResponse = await axios.post(
-            `${apiUrl}/user/stripe-customer`,
-            {
-              email: user.email,
-            },
-          );
+        const customerId = stripeResponse.data.customerId;
 
-          const customerId = stripeResponse.data.customerId;
-
-          await axios.put(apiUrl + USER_ROUTE + user._id, {
-            stripeCustomerId: customerId,
-          });
-
-          const updatedUser = {
-            ...user,
-            stripeCustomerId: customerId,
-          };
-
-          setUserData(updatedUser);
-          sessionStorage.setItem("userData", JSON.stringify(updatedUser));
-        } else {
-          setUserData(user);
-          sessionStorage.setItem("userData", JSON.stringify(user));
-        }
-
-        setShowHub(true);
-      } else {
-        console.log("jest: User doesn't exist");
-
-        DialogBox({
-          text: t("connexionError"),
-          icon: "error",
-          confirmButtonText: "OK",
+        await axios.put(apiUrl + USER_ROUTE + user._id, {
+          stripeCustomerId: customerId,
         });
+
+        const updatedUser = {
+          ...user,
+          stripeCustomerId: customerId,
+        };
+
+        setUserData(updatedUser);
+        sessionStorage.setItem("userData", JSON.stringify(updatedUser));
+      } else {
+        setUserData(user);
+        sessionStorage.setItem("userData", JSON.stringify(user));
       }
+
+      setShowHub(true);
     } catch (error) {
       console.error(error);
+
+      DialogBox({
+        text: t("connexionError"),
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
