@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install backend dependencies
+        working-directory: ./jemos-back
+        run: npm ci
+
+      - name: Install frontend dependencies
+        working-directory: ./jemos_new
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: ./jemos_new
+        env:
+          REACT_APP_API_URL: http://localhost:5000
+          REACT_APP_GOOGLE_MAPS_API_KEY: dummy_key
+          REACT_APP_STRIPE_PUBLIC_KEY: pk_test_dummy
+        run: npm run build
+
+      - name: Build Docker images
+        run: docker compose build
