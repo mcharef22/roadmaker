@@ -1,0 +1,16 @@
+/* Cible la carte en mode plein écran */
+.custom-map.gm-fullscreen {
+  /* Ajoutez vos styles personnalisés ici */
+  background-color: red;
+  /* Ceci est un exemple */
+  display: none;
+}
+
+/* Cible les éléments enfants de la carte en mode plein écran */
+.custom-map.gm-fullscreen .gmnoprint,
+.custom-map.gm-fullscreen .gm-style {
+  /* Ajoutez vos styles personnalisés ici */
+  font-size: 1.5em;
+  /* Ceci est un exemple */
+}
+

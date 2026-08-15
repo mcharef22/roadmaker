@@ -1,0 +1,34 @@
+# Variables d'environnement / secrets
+.env
+**/.env
+
+# Dépendances Node.js
+node_modules/
+**/node_modules/
+
+# Builds
+build/
+**/build/
+dist/
+**/dist/
+
+# SonarQube
+.scannerwork/
+**/.scannerwork/
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE / système
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Certificats SSL
+**/*.pem
+
+# Fichiers contenant des secrets
+jemos-back/config.json
+jemos_new/src/config.json

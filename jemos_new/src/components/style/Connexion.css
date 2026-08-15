@@ -1,0 +1,315 @@
+.App,
+.btnMdpOublie,
+.AppBgError {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.formCard,
+.btnMenu,
+.btnConnexion,
+.btnBack {
+  border: none;
+}
+
+.App,
+.AppBgError {
+  background-image: url("../../../public/rm_imgs/bg_connexion.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.AppBgError {
+  height: 100vh;
+}
+
+.logo404 {
+  width: 100px; /* Ajustez la largeur de votre logo selon vos besoins */
+  height: auto; /* Ajustez la hauteur de votre logo selon vos besoins */
+  display: inline-block;
+}
+
+.accessPage,
+.accessPageInscription,
+.accessPageConnexion {
+  border-radius: 30px;
+  padding: 50px 50px 50px;
+  background: url("/public/rm_imgs/wave.png") center/cover no-repeat, white;
+  box-shadow: 10px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (min-width: 1600px) {
+  .accessPage {
+    width: 18vw;
+    height: 72vh;
+    margin-top: 8vh;
+  }
+
+  .accessPageInscription {
+    width: 20vw;
+    height: 70vh;
+    margin-top: 8vh;
+  }
+}
+
+.formStylePreset {
+  border: 3px solid #62bad9;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.AppContainer {
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.logo {
+  height: 23vmin;
+  pointer-events: none;
+}
+
+.logoContainer {
+  margin-top: 8vh;
+}
+
+.btnMenu {
+  background-color: #8dcce4;
+  color: white;
+  padding: 5px 40px;
+  border-radius: 50px;
+  transition: 0.5s;
+}
+
+.btnMenu:hover,
+.btnBack:hover,
+.btnConnexion:hover,
+.btnMdpOublie:hover {
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+
+.buttonIns {
+  background-color: rgb(49, 255, 142);
+  border-color: rgb(49, 255, 142);
+  border-radius: 20px;
+  margin-top: 13px;
+  padding: 10px;
+}
+
+.input {
+  border-radius: 20px;
+  border-color: rgb(0, 255, 0);
+  border: 3px solid rgb(28, 161, 28);
+}
+
+.buttonn {
+  color: white;
+  background-color: black;
+  padding: 8px;
+  border-color: black;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.buttonMenu {
+  background-color: rgb(131, 131, 131);
+  border-color: rgb(131, 131, 131);
+  border-radius: 20px;
+  margin-top: 13px;
+  padding: 10px;
+  color: white;
+}
+
+.labelConnexion {
+  color: #61b9d9;
+}
+
+.inputConnexion,
+.inputInscription {
+  border: none;
+  background-color: #61b9d9;
+  color: white;
+  padding: 5px 40px;
+  border-radius: 50px;
+}
+
+.inputPassword,
+.inputPasswordInscription {
+  border: none;
+  background-color: #61b9d9;
+  color: white;
+  padding: 5px 40px;
+  border-radius: 50px 0px 0px 50px;
+  border-right: none;
+  max-width: 230px;
+}
+
+.buttonShowPassword {
+  border: none;
+  background-color: #61b9d9;
+  color: white;
+  border-radius: 0px 50px 50px 0px;
+}
+
+.inputPassword:focus,
+.inputConnexion:focus {
+  outline: none;
+}
+
+.btnConnexion,
+.btnBack {
+  border: none;
+  background-color: #8dcce4;
+  color: white;
+  border-radius: 50px;
+  padding: 5px 20px;
+  transition: 0.5s;
+  font-size: 15px;
+}
+
+.btnBack {
+  padding: 5px 40px;
+}
+
+.btnMdpOublie {
+  border: none;
+  background-image: url("/public/rm_imgs/bg_retourAuMenu.png");
+  color: white;
+  padding: 5px 20px;
+  border-radius: 50px;
+  transition: 0.5s;
+  font-size: 15px;
+}
+
+.inputContainer {
+  position: relative;
+  top: -30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+@media screen and (max-width: 1024px) {
+  .buttonsContainerConnexion {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .accessPage {
+    width: 60vw;
+    height: 60vh;
+    margin-top: 5vh;
+  }
+
+  .logo {
+    height: 35vmin;
+  }
+
+  .logoContainer {
+    margin-top: 5vh;
+  }
+
+  .buttonsContainer {
+    margin-top: 120px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1599px) {
+  .accessPageInscription {
+     /* width: 22vw;  */
+    height: 92vh;
+    margin-top: 5vh;
+  }
+
+  .inputInscription {
+    width: 80%;
+  }
+
+  .inputPasswordInscription {
+    width: 70%;
+  }
+
+  .passwordContainer button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .logoInscription {
+    height: 10vmin;
+  }
+
+  .buttonsContainerInscription {
+    margin-bottom: 20px;
+  }
+
+  .buttonsContainer {
+    margin-top: 100px;
+  }
+
+  .buttonsContainerConnexion {
+    margin-top: 180px;
+  }
+
+  .logoConnexion {
+    height: 10vmin;
+    margin-bottom: 10px;
+  }
+
+  .accessPageConnexion {
+    /* width: 22vw; */
+    height: 85vh;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .buttonsContainer {
+    margin-top: 120px;
+  }
+
+  .accessPageInscription {
+    /*  width: 20vw; */
+    height: 74vh;
+    margin-top: 5vh;
+  }
+
+  .inputInscription {
+    width: 80%;
+  }
+
+  .inputPasswordInscription {
+    width: 70%;
+  }
+
+  .passwordContainer button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .buttonsContainerInscription {
+    margin-bottom: 20px;
+  }
+
+  .buttonsContainerConnexion {
+    margin-top: 200px;
+  }
+
+  .logoConnexion {
+    height: 10vmin;
+    margin-bottom: 20px;
+  }
+  .accessPageConnexion {
+    /* width: 18vw; */
+    height: 80vh;
+  }
+}
+@media screen and (max-width: 400px) {
+  .buttonsContainer {
+    font-size: 14px; 
+    align-items: center;
+  }
+}
+@media (max-height: 740px) {
+  .buttonsContainer {
+  margin-top: 0;
+}
+}

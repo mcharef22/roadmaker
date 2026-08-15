@@ -1,0 +1,141 @@
+.containerCalculateRoute {
+  background-color: #d8eef5;
+  height: 560px;
+  overflow: auto;
+  border-radius: 15px;
+  z-index: 1;
+  position: relative;
+}
+.customStepbox {
+  margin-top: 3% !important;
+}
+.customRow {
+  text-align: center;
+  width: 100%;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonFindRoute {
+  border: none;
+  background-color: #ecedf2;
+  width: 70px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-left: 0px;
+  /*border radius sauf sur les cotés gauches*/
+  border-radius: 0px 10px 10px 0px;
+  /*ombre portée uniquement en bas*/
+}
+
+.inputFindRoute {
+  width: 100%;
+  border: none;
+  background-color: #ecedf2;
+  border-radius: 10px 0px 0px 10px;
+  text-align: center;
+  padding-top: 11px;
+  padding-bottom: 7px;
+}
+
+.iconSearchRoute {
+  color: #a7dcf5;
+  font-size: 20px;
+}
+
+.searchBar {
+  display: flex;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.logoSearchBar {
+  width: 5%; /* Ajouté */
+  filter: drop-shadow(1px 0px 1px rgba(0, 0, 0, 1));
+  align-self: center;
+  position: absolute;
+  top: 10px;
+}
+
+.calculerTrajetButton {
+  border: none;
+  border-radius: 10px;
+  background-color: #eb5d17;
+  color: white;
+  padding: 8px;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.calculerTrajetButton:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.selectedButtonStyle {
+  background-color: #63bad9;
+  color: white;
+  padding: 8px;
+  border-radius: 50%; /* Modifié */
+  width: 50px; /* Ajouté */
+  height: 50px; /* Ajouté */
+  border: none;
+  border-color: #a7dcf5;
+  transition: 0.3s;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.notSelectedButtonStyle {
+  background-color: #ecedf2;
+  color: #63bad9;
+  padding: 8px;
+  border-radius: 50%; /* Modifié */
+  width: 50px; /* Ajouté */
+  height: 50px; /* Ajouté */
+  border: none;
+  transition: 0.3s;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.selectedButtonStyle:hover,
+.notSelectedButtonStyle:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.initialDirections,
+.customDirections {
+  border-radius: 20px;
+  border: none;
+  color: #eb5d17;
+  background-color: #ecedf2;
+  width: 50%;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  padding: 0px;
+  height: 40px;
+  margin-top: 20px;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.initialDirections:hover,
+.customDirections:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+  background-color: #eb5d17;
+  color: white;
+}
+
+.invisibleButtons {
+  display: none;
+}

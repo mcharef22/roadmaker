@@ -1,0 +1,238 @@
+.formModifMarker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputModifMarker {
+  width: 80%;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid #63bad9;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  margin-left: 10px;
+}
+.inputModifMarker1 {
+  width: 80%;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid #63bad9;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  margin-left: 33px;
+  direction: ltr !important;
+  unicode-bidi: embed !important;
+}
+
+.divLabelInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.validateModifMarker {
+  border-radius: 20px;
+  border: none;
+  background-color: #63bad9;
+  color: white;
+  width: 20%;
+  transition: 0.3s;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  margin-top: 15px;
+  height: 40px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonModifMarker {
+  border-radius: 20px;
+  padding: 5px;
+  border: none;
+  background-color: #63bad9;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  color: white;
+  transition: 0.3s;
+  margin-left: -5%;
+}
+
+.selectMarker {
+  width: 70%;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid #63bad9;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.inputAddFile {
+  margin-top: 20px;
+  border-radius: 20px;
+  border: 1px solid #63bad9;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.inputAddFile::file-selector-button {
+  border-radius: 20px;
+  border: none;
+  background-color: #63bad9;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+.lienUrl {
+  display: block;
+}
+.buttonDeleteFile {
+  border-radius: 25px;
+  border: none;
+  background-color: #eb5d17;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+  transition: 0.3s;
+}
+
+.buttonDeleteUrl {
+  border-radius: 25px;
+  border: none;
+  background-color: #eb5d17;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin-left: 14px;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+  transition: 0.3s;
+}
+.cardOpenQuestion {
+  position: relative; /* Pour positionner absolument les éléments à l'intérieur */
+}
+
+.buttonDeleteQuiz {
+  border-radius: 25px;
+  border: none;
+  background-color: #eb1717;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin-left: 14px;
+  padding: 5px;
+  height: 28px;
+  width: 30px;
+  transition: 0.3s;
+  position: absolute;
+  top: -10px; /* Réduit l'espace du haut pour le déplacer plus haut */
+  right: -4px; /* Décalage vers le coin supérieur droit */
+}
+
+.buttonEditFile {
+  border-radius: 25px;
+  border: none;
+  background-color: #63bad9;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+  transition: 0.3s;
+}
+
+.buttonDeleteAll {
+  border-radius: 20px;
+  border: none;
+  background-color: red;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  transition: 0.3s;
+  width: 50%;
+  margin-left: -5%;
+}
+
+.buttonModif {
+  border-radius: 10px;
+  border: none;
+  background-color: #eb5d17;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  transition: 0.3s;
+  width: 30%;
+}
+
+.buttonDeleteFile:hover,
+.buttonEditFile:hover,
+.buttonModifMarker:hover,
+.buttonDeleteAll:hover,
+.buttonModif:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.descriptionText {
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1599px) {
+  .descriptionText {
+    max-width: 75%;
+    word-wrap: break-word;
+  }
+
+  .inputAddFile {
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 1px solid #63bad9;
+    box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 80%;
+  }
+
+  .audioInput {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .formModifMarker {
+    margin-right: 5%;
+  }
+
+  .buttonDeleteAll {
+    margin-left: 5%;
+    margin-right: 10%;
+  }
+
+  .descriptionText {
+    max-width: 70%;
+    word-wrap: break-word;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .descriptionText {
+    max-width: 70%;
+    word-wrap: break-word;
+  }
+}
+
+.videoInput {
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.imageMarker {
+  width: 50%;
+  height: 50%;
+}

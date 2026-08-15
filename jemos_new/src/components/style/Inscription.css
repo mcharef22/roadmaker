@@ -1,0 +1,20 @@
+.button{
+    color: white;
+    background-color: black;
+    padding: 8px;
+    border-color: black;
+    border-radius: 20px;
+    margin-top: 11px;
+  }
+  .buttonBack{
+    background-color: rgb(49, 255, 142);
+    border-color:rgb(49, 255, 142) ;
+    border-radius: 20px;
+    margin-top: 13px;
+    padding: 10px;
+  }
+  .input{
+    border-radius: 20px;
+    border-color: rgb(0, 255, 0);
+    border:3px solid rgb(28, 161, 28);
+  }

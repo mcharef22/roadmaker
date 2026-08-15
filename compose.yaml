@@ -1,0 +1,54 @@
+name: roadmaker
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: roadmaker-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test:
+        ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    container_name: roadmaker-backend
+    build:
+      context: ./jemos-back
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./jemos-back/.env
+    environment:
+      PORT: 5000
+      NODE_ENV: development
+      MONGO_URI: mongodb://mongo:27017/roadmaker
+    volumes:
+      - ./jemos-back/uploads:/app/uploads
+      - ./jemos-back/uploadFilesOnServer:/app/uploadFilesOnServer
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  frontend:
+    container_name: roadmaker-frontend
+    build:
+      context: ./jemos_new
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://localhost:5000
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
