@@ -1,13 +1,12 @@
 const nodemailer = require("nodemailer");
-const config = require("../config.json");
 
 const transporter = nodemailer.createTransport({
-  host: config.SMTP.HOST,
-  port: config.SMTP.PORT,
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
   secure: false,
   auth: {
-    user: config.SMTP.USER,
-    pass: config.SMTP.PASSWORD,
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
   },
 });
 
@@ -16,9 +15,9 @@ module.exports.sendEmail = async (req, res) => {
 
   const mailOptions = {
     from: email,
-    to: config.SMTP.USER,
+    to: process.env.SMTP_USER,
     replyTo: email,
-    subject: subject,
+    subject,
     html: message,
     attachments: [
       {
@@ -42,10 +41,11 @@ module.exports.sendEmail = async (req, res) => {
 
 module.exports.sendEmailToUser = async (req, res) => {
   const { email, subject, message } = req.body;
+
   const mailOptions = {
-    from: config.SMTP.USER,
+    from: process.env.SMTP_USER,
     to: email,
-    subject: subject,
+    subject,
     html: message,
     attachments: [
       {
