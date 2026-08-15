@@ -43,7 +43,7 @@ services:
       context: ./jemos_new
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: http://localhost:5000
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:5000}
     restart: unless-stopped
     ports:
       - "3000:3000"
