@@ -33,6 +33,7 @@ function Connexion() {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.get(apiUrl + USERS_ROUTE);
       const users = response.data;
@@ -44,45 +45,39 @@ function Connexion() {
 
       if (user) {
         console.log("jest: User exist");
-        if (user.confirmed) {
-          console.log("jest: User exist and confirmed");
 
-          if (!user.stripeCustomerId) {
-            const stripeResponse = await axios.post(
-              `${apiUrl}/user/stripe-customer`,
-              {
-                email: user.email,
-              },
-            );
+        // Confirmation email ignorée temporairement
 
-            const customerId = stripeResponse.data.customerId;
+        if (!user.stripeCustomerId) {
+          const stripeResponse = await axios.post(
+            `${apiUrl}/user/stripe-customer`,
+            {
+              email: user.email,
+            },
+          );
 
-            await axios.put(apiUrl + USER_ROUTE + user._id, {
-              stripeCustomerId: customerId,
-            });
+          const customerId = stripeResponse.data.customerId;
 
-            const updatedUser = {
-              ...user,
-              stripeCustomerId: customerId,
-            };
-
-            setUserData(updatedUser);
-            sessionStorage.setItem("userData", JSON.stringify(updatedUser));
-          } else {
-            setUserData(user);
-            sessionStorage.setItem("userData", JSON.stringify(user));
-          }
-
-          setShowHub(true);
-        } else {
-          DialogBox({
-            text: t("emailNotConfirmed"),
-            icon: "info",
-            confirmButtonText: "OK",
+          await axios.put(apiUrl + USER_ROUTE + user._id, {
+            stripeCustomerId: customerId,
           });
+
+          const updatedUser = {
+            ...user,
+            stripeCustomerId: customerId,
+          };
+
+          setUserData(updatedUser);
+          sessionStorage.setItem("userData", JSON.stringify(updatedUser));
+        } else {
+          setUserData(user);
+          sessionStorage.setItem("userData", JSON.stringify(user));
         }
+
+        setShowHub(true);
       } else {
         console.log("jest: User doesn't exist");
+
         DialogBox({
           text: t("connexionError"),
           icon: "error",
