@@ -5,8 +5,6 @@ services:
     image: mongo:7
     container_name: roadmaker-mongo
     restart: unless-stopped
-    ports:
-      - "27017:27017"
     volumes:
       - mongo_data:/data/db
     healthcheck:
@@ -23,7 +21,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     env_file:
       - ./jemos-back/.env
     environment:
@@ -48,7 +46,7 @@ services:
         REACT_APP_STRIPE_PUBLIC_KEY: ${REACT_APP_STRIPE_PUBLIC_KEY}
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     depends_on:
       - backend
 
