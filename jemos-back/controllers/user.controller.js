@@ -3,6 +3,7 @@ const ProjectModel = require("../models/project.model");
 const BindingAddressModel = require("../models/billingAddress.model");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 module.exports.getUsers = async (req, res) => {
   const users = await UserModel.find();
@@ -204,11 +205,25 @@ module.exports.loginUser = async (req, res) => {
         message: "Identifiants invalides",
       });
     }
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        email: user.email,
+        admin: user.admin,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+      },
+    );
 
     const userObject = user.toObject();
     delete userObject.password;
 
-    return res.status(200).json(userObject);
+    return res.status(200).json({
+      user: userObject,
+      token,
+    });
   } catch (error) {
     console.error("Erreur connexion utilisateur :", error);
 
