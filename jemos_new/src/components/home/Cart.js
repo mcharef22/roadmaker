@@ -1,12 +1,12 @@
 import React from "react";
 import { customToastNotify } from "../util/Toast";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import DialogBox from "../util/DialogBox";
 import { priceOfCart } from "../util/Util";
 import { useTranslation } from "react-i18next";
 import { USER_ROUTE } from "../map/gpx/Resources";
 import { apiUrl } from "../../config";
+import axiosInstance from "../../api/axiosInstance";
 
 const Cart = ({
   cart,
@@ -18,9 +18,10 @@ const Cart = ({
   const { t } = useTranslation();
   const [newUserInfo, setNewUserInfo] = useState(userData);
   const IMG_CART = "/rm_imgs/cart.png";
+
   useEffect(() => {
     const fetchData = async () => {
-      const rep = await axios.get(apiUrl + USER_ROUTE + userData._id);
+      const rep = await axiosInstance.get(USER_ROUTE + userData._id);
 
       setNewUserInfo(rep.data);
     };

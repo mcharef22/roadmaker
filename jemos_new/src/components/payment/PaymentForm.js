@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "axios";
 import { LoadingBox, closeLoadingBox } from "../util/LoadingBox";
 import DialogBox from "../util/DialogBox";
 import { MailHTMLTemplate } from "../util/mailHTML/MailHTMLTemplate";
@@ -16,6 +15,7 @@ import {
   USER_ROUTE,
 } from "../map/gpx/Resources";
 import { apiUrl } from "../../config";
+import axiosInstance from "../../api/axiosInstance";
 
 function PaymentForm({
   handlePaymentSuccess,
@@ -33,14 +33,16 @@ function PaymentForm({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userFetch = await axios.get(apiUrl + USER_ROUTE + userData._id);
+        const userFetch = await axiosInstance.get(
+          apiUrl + USER_ROUTE + userData._id,
+        );
 
         let customerId = userFetch.data.stripeCustomerId;
 
         if (!customerId) {
           console.log("L'utilisateur n'a pas d'ID client Stripe.");
 
-          const stripeResponse = await axios.post(
+          const stripeResponse = await axiosInstance.post(
             `${apiUrl}/user/stripe-customer`,
             {
               email: userFetch.data.email,
@@ -49,14 +51,14 @@ function PaymentForm({
 
           customerId = stripeResponse.data.customerId;
 
-          await axios.put(apiUrl + USER_ROUTE + userFetch.data._id, {
+          await axiosInstance.put(apiUrl + USER_ROUTE + userFetch.data._id, {
             stripeCustomerId: customerId,
           });
 
           console.log("ID client Stripe attribué à l'utilisateur:", customerId);
         }
 
-        const paymentMethodsResponse = await axios.get(
+        const paymentMethodsResponse = await axiosInstance.get(
           `${apiUrl}/stripe/payment-methods/${customerId}`,
         );
 
@@ -119,7 +121,7 @@ function PaymentForm({
 
       if (confirmSave) {
         console.log("Carte sauvegardée pour de futurs paiements");
-        await axios.post(`${apiUrl}/stripe/payment-methods/attach`, {
+        await axiosInstance.post(`${apiUrl}/stripe/payment-methods/attach`, {
           paymentMethodId: paymentMethod.id,
           customerId: userData.stripeCustomerId,
         });
@@ -147,7 +149,7 @@ function PaymentForm({
       icon: "info",
     });
     try {
-      const paymentResponse = await axios.post(
+      const paymentResponse = await axiosInstance.post(
         `${apiUrl}/stripe/payment-intent`,
         {
           paymentMethodId,
@@ -224,7 +226,7 @@ function PaymentForm({
    */
 
   const handleInvoiceAndEmail = async () => {
-    await axios.post(apiUrl + INVOICES_ROUTE, {
+    await axiosInstance.post(apiUrl + INVOICES_ROUTE, {
       dateInvoice: new Date(),
       nameProduct: "Premium",
       priceProduct: 0.5,
@@ -235,7 +237,7 @@ function PaymentForm({
       "Votre facture",
     )}${InvoiceBody(userData)}`;
     const htmlMessage = MailHTMLTemplate(mainContentInvoice);
-    await axios
+    await axiosInstance
       .post(apiUrl + EMAIL_OF_USER_ROUTE, {
         email: userData.email,
         subject: "Votre facture",
@@ -275,7 +277,9 @@ function PaymentForm({
 
     if (confirmRemove) {
       try {
-        await axios.delete(`${apiUrl}/stripe/payment-methods/${card.id}`);
+        await axiosInstance.delete(
+          `${apiUrl}/stripe/payment-methods/${card.id}`,
+        );
         const updatedSavedCards = savedCards.filter((c) => c.id !== card.id);
         setSavedCards(updatedSavedCards);
       } catch (error) {

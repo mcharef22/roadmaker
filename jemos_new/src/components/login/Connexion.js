@@ -37,7 +37,9 @@ function Connexion() {
         password,
       });
 
-      const user = response.data;
+      const { user, token } = response.data;
+
+      sessionStorage.setItem("token", token);
 
       console.log("jest: User exist");
 

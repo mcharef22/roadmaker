@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import DialogBoxWithConfirmation from "../../util/DialogBoxWithConfirmation";
 import {
   INITIAL_ICON_INDEX_ARRAY,
@@ -10,6 +9,7 @@ import UsersFilterOptions from "./UsersFilterOptions";
 import { formatDate, sortByDate, filterItems } from "../../util/Util";
 import { useTranslation } from "react-i18next";
 import { apiUrl } from "../../../config";
+import axiosInstance from "../../../api/axiosInstance";
 
 const UsersList = ({ handleDeleteProject }) => {
   const [users, setUsers] = useState([]);
@@ -33,7 +33,7 @@ const UsersList = ({ handleDeleteProject }) => {
      */
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(apiUrl + USERS_ROUTE);
+        const response = await axiosInstance.get(apiUrl + USERS_ROUTE);
         setUsers(response.data);
       } catch (error) {
         console.error(error);
@@ -51,7 +51,7 @@ const UsersList = ({ handleDeleteProject }) => {
   const filteredUsers = sortByDate(
     sortedUsers,
     (user) => new Date(user.dateOfCreation),
-    sortOrder
+    sortOrder,
   );
 
   /**
@@ -63,7 +63,7 @@ const UsersList = ({ handleDeleteProject }) => {
     console.log("jest: Fonction de suppression est appelée");
     try {
       // Récupérer l'utilisateur que vous souhaitez supprimer
-      const response = await axios.get(apiUrl + USER_ROUTE + userId);
+      const response = await axiosInstance.get(apiUrl + USER_ROUTE + userId);
       const user = response.data;
 
       const confirmDelete = await DialogBoxWithConfirmation({
@@ -84,7 +84,7 @@ const UsersList = ({ handleDeleteProject }) => {
         }
 
         // Supprimer l'utilisateur
-        await axios.delete(apiUrl + USER_ROUTE + userId);
+        await axiosInstance.delete(apiUrl + USER_ROUTE + userId);
 
         // Mettre à jour la liste des utilisateurs
         const newUsers = users.filter((user) => user._id !== userId);
@@ -135,7 +135,7 @@ const UsersList = ({ handleDeleteProject }) => {
 
       delete updatedUser.password;
 
-      await axios.put(apiUrl + USER_ROUTE + userId, updatedUser);
+      await axiosInstance.put(apiUrl + USER_ROUTE + userId, updatedUser);
       const updatedUsers = users.map((user) => {
         if (user._id === userId) {
           return updatedUser;
@@ -178,7 +178,7 @@ const UsersList = ({ handleDeleteProject }) => {
       });
 
       if (confirmResetIndex) {
-        await axios.put(apiUrl + USER_ROUTE + userId, {
+        await axiosInstance.put(apiUrl + USER_ROUTE + userId, {
           iconIndexArray: updatedUser.iconIndexArray,
         });
         const updatedUsers = users.map((user) => {

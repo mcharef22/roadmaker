@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "../../components/style/global.css";
 import { apiUrl } from "../../config";
 import DialogBox from "../util/DialogBox";
@@ -14,6 +13,7 @@ import {
   USERS_ROUTE,
   USER_ROUTE,
 } from "../map/gpx/Resources";
+import axiosInstance from "../../api/axiosInstance";
 
 const UserProfile = ({
   userData,
@@ -33,9 +33,9 @@ const UserProfile = ({
 
   const updateMainContent = `
     ${MailTemplateHeader("Mise à jour de vos informations")}${UpdateUserInfo(
-    userData,
-    "vos informations personnelles"
-  )}`;
+      userData,
+      "vos informations personnelles",
+    )}`;
 
   /**
    * Récupère les données de l'utilisateur
@@ -46,7 +46,9 @@ const UserProfile = ({
       icon: "info",
     });
     try {
-      const response = await axios.get(apiUrl + USER_ROUTE + userData._id);
+      const response = await axiosInstance.get(
+        apiUrl + USER_ROUTE + userData._id,
+      );
       closeLoadingBox();
       setEmail(response.data.email);
       setPack(response.data.pack);
@@ -84,9 +86,9 @@ const UserProfile = ({
   const handleValider = async (e) => {
     e.preventDefault();
     try {
-      const usersResponse = await axios.get(apiUrl + USERS_ROUTE);
+      const usersResponse = await axiosInstance.get(apiUrl + USERS_ROUTE);
       const otherUsers = usersResponse.data.filter(
-        (user) => user._id !== userData._id
+        (user) => user._id !== userData._id,
       );
       const emailExists = otherUsers.some((user) => user.email === email);
       if (emailExists) {
@@ -100,19 +102,22 @@ const UserProfile = ({
 
       const htmlMessage = MailHTMLTemplate(updateMainContent);
 
-      const response = await axios.put(apiUrl + USER_ROUTE + userData._id, {
-        name: userName,
-        email: email,
-        pack: pack,
-        avatar: avatar,
-      });
+      const response = await axiosInstance.put(
+        apiUrl + USER_ROUTE + userData._id,
+        {
+          name: userName,
+          email: email,
+          pack: pack,
+          avatar: avatar,
+        },
+      );
       setUserInformations(response.data);
 
       password &&
-        (await axios.put(apiUrl + USER_ROUTE + userData._id, {
+        (await axiosInstance.put(apiUrl + USER_ROUTE + userData._id, {
           password: password,
         }));
-      await axios.post(apiUrl + EMAIL_OF_USER_ROUTE, {
+      await axiosInstance.post(apiUrl + EMAIL_OF_USER_ROUTE, {
         email: userData.email,
         subject: "Mise à jour de vos informations",
         message: htmlMessage,

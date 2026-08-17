@@ -6,7 +6,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import axios from "axios";
 import DialogBox from "../util/DialogBox";
 import SavedCards from "./SavedCards";
 import DialogBoxWithConfirmation from "../util/DialogBoxWithConfirmation";
@@ -14,6 +13,7 @@ import LoadingBox, { closeLoadingBox } from "../util/LoadingBox";
 import { useTranslation } from "react-i18next";
 import { USER_ROUTE } from "../map/gpx/Resources";
 import { apiUrl } from "../../config";
+import axiosInstance from "../../api/axiosInstance";
 
 function CreditCards({ userData }) {
   const [savedCards, setSavedCards] = useState([]);
@@ -24,12 +24,14 @@ function CreditCards({ userData }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(apiUrl + USER_ROUTE + userData._id);
+        const response = await axiosInstance.get(
+          apiUrl + USER_ROUTE + userData._id,
+        );
 
         if (!response.data.stripeCustomerId) {
           console.log("L'utilisateur n'a pas d'ID client Stripe.");
 
-          const stripeResponse = await axios.post(
+          const stripeResponse = await axiosInstance.post(
             `${apiUrl}/user/stripe-customer`,
             {
               email: response.data.email,
@@ -38,19 +40,19 @@ function CreditCards({ userData }) {
 
           const customerId = stripeResponse.data.customerId;
 
-          await axios.put(apiUrl + USER_ROUTE + response.data._id, {
+          await axiosInstance.put(apiUrl + USER_ROUTE + response.data._id, {
             stripeCustomerId: customerId,
           });
 
           console.log("ID client Stripe attribué à l'utilisateur:", customerId);
 
-          const paymentMethodsResponse = await axios.get(
+          const paymentMethodsResponse = await axiosInstance.get(
             `${apiUrl}/stripe/payment-methods/${customerId}`,
           );
 
           setSavedCards(paymentMethodsResponse.data);
         } else {
-          const paymentMethodsResponse = await axios.get(
+          const paymentMethodsResponse = await axiosInstance.get(
             `${apiUrl}/stripe/payment-methods/${response.data.stripeCustomerId}`,
           );
 
@@ -114,7 +116,7 @@ function CreditCards({ userData }) {
         return existingCard.id;
       }
 
-      await axios.post(`${apiUrl}/stripe/payment-methods/attach`, {
+      await axiosInstance.post(`${apiUrl}/stripe/payment-methods/attach`, {
         paymentMethodId: paymentMethod.id,
         customerId: userData.stripeCustomerId,
       });
@@ -155,7 +157,9 @@ function CreditCards({ userData }) {
     if (confirmRemove) {
       try {
         for (const card of savedCards) {
-          await axios.delete(`${apiUrl}/stripe/payment-methods/${card.id}`);
+          await axiosInstance.delete(
+            `${apiUrl}/stripe/payment-methods/${card.id}`,
+          );
         }
         setSavedCards([]);
       } catch (error) {
@@ -178,7 +182,9 @@ function CreditCards({ userData }) {
 
     if (confirmRemove) {
       try {
-        await axios.delete(`${apiUrl}/stripe/payment-methods/${card.id}`);
+        await axiosInstance.delete(
+          `${apiUrl}/stripe/payment-methods/${card.id}`,
+        );
         setSavedCards((prevCards) => prevCards.filter((c) => c.id !== card.id));
       } catch (error) {
         console.error(
